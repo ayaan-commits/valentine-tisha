@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A special Valentine's gift made with love">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="theme-color" content="#1e3a5a">
+    <title>Valentine Gift | For You</title>
+
+    <!-- Preconnect for faster font loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Confetti library with SRI -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"
+            integrity="sha256-gkOBqvFGqGmYXGNoiJfMWwqZVf4wYLqKqmvQ2tKG2hA="
+            crossorigin="anonymous" defer></script>
+</head>
+<body>
+    <!-- Floating Hearts Background -->
+    <div class="hearts-bg" id="hearts-bg"></div>
+
+    <!-- Music Player (Fixed) -->
+    <div class="music-player" id="music-player" role="region" aria-label="Music player">
+        <button class="play-btn" id="play-btn" type="button" aria-label="Play music">
+            <span class="play-icon">&#9654;</span>
+        </button>
+        <div class="music-info">
+            <span class="song-title">Love Song</span>
+            <span class="song-subtitle">Playing for you</span>
+        </div>
+        <button class="volume-btn" id="volume-btn" type="button" aria-label="Toggle volume">
+            <span>&#128266;</span>
+        </button>
+    </div>
+    <audio id="bg-music" loop>
+        <source src="music/love-song.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <!-- ==================== VAULT / PASSWORD PAGE ==================== -->
+    <section class="section vault-section active" id="vault-section">
+        <div class="vault-container">
+            <div class="vault-icon">&#128274;</div>
+            <h1 class="vault-title">The Vault</h1>
+            <p class="vault-subtitle">First time we saw each other laughing</p>
+            <p class="vault-hint">(PS: You look cute in white) DDMMYYYY</p>
+
+            <div class="pin-display" id="pin-display">
+                <span class="pin-dot"></span>
+                <span class="pin-dot"></span>
+                <span class="pin-dot"></span>
+                <span class="pin-dot"></span>
+                <span class="pin-dot"></span>
+                <span class="pin-dot"></span>
+                <span class="pin-dot"></span>
+                <span class="pin-dot"></span>
+            </div>
+
+            <div class="keypad">
+                <button class="key-btn" data-key="1">1</button>
+                <button class="key-btn" data-key="2">2</button>
+                <button class="key-btn" data-key="3">3</button>
+                <button class="key-btn" data-key="4">4</button>
+                <button class="key-btn" data-key="5">5</button>
+                <button class="key-btn" data-key="6">6</button>
+                <button class="key-btn" data-key="7">7</button>
+                <button class="key-btn" data-key="8">8</button>
+                <button class="key-btn" data-key="9">9</button>
+                <button class="key-btn" data-key="0">0</button>
+                <button class="key-btn delete-btn" data-key="delete">&#9003;</button>
+            </div>
+
+            <button class="unlock-btn" id="unlock-btn" disabled>UNLOCK GIFT</button>
+        </div>
+    </section>
+
+    <!-- ==================== MAIN CONTENT (Hidden until unlocked) ==================== -->
+    <main class="main-content" id="main-content" style="display: none;">
+
+        <!-- ==================== HERO SECTION ==================== -->
+        <section class="section hero-section" id="hero-section">
+            <div class="hero-bg-image"></div>
+            <div class="hero-overlay"></div>
+
+            <!-- Animated decorative elements -->
+            <div class="hero-decorations">
+                <div class="deco-heart deco-1">💙</div>
+                <div class="deco-heart deco-2">🩶</div>
+                <div class="deco-heart deco-3">💜</div>
+                <div class="deco-star deco-4">✨</div>
+                <div class="deco-star deco-5">⭐</div>
+                <div class="deco-heart deco-6">🤍</div>
+            </div>
+
+            <div class="hero-content">
+                <!-- Top badge -->
+                <div class="hero-badge">
+                    <span class="badge-dot"></span>
+                    <span>Our First Valentine</span>
+                </div>
+
+                <!-- Hero layout with photos -->
+                <div class="hero-layout">
+                    <!-- Left photo frame -->
+                    <div class="hero-photo-frame left-frame">
+                        <div class="photo-inner">
+                            <img src="photos/us.jpg" alt="Photo of us together" loading="lazy" class="hero-img">
+                            <div class="photo-placeholder-hero hidden">
+                                <span>📸</span>
+                                <p>Our Photo</p>
+                            </div>
+                        </div>
+                        <p class="frame-caption">My favorite person</p>
+                    </div>
+
+                <!-- Main hero card -->
+                <div class="hero-card-enhanced">
+                    <!-- Sparkle decorations around name -->
+                    <div class="sparkle-container">
+                        <span class="sparkle s1">✦</span>
+                        <span class="sparkle s2">✧</span>
+                        <span class="sparkle s3">✦</span>
+                        <span class="sparkle s4">✧</span>
+                    </div>
+
+                    <div class="hero-greeting">Happy Valentine's Day</div>
+
+                    <!-- Glowing name -->
+                    <h1 class="hero-name-glow" data-text="Tisha">Tisha</h1>
+
+                    <!-- Rotating quotes -->
+                    <div class="hero-quotes-container">
+                        <p class="hero-quote-rotating" id="rotating-quote"></p>
+                    </div>
+
+                    <!-- Action buttons -->
+                    <div class="hero-actions">
+                        <button class="shower-btn-enhanced" id="shower-btn">
+                            <span class="btn-icon">💝</span>
+                            <span class="btn-text">Shower with Love</span>
+                            <span class="btn-sparkle">✨</span>
+                        </button>
+                    </div>
+
+                    <!-- Love counter card -->
+                    <div class="love-counter-card">
+                        <div class="counter-icon">💑</div>
+                        <div class="counter-content">
+                            <p class="counter-label">Together for</p>
+                            <p class="counter-time" id="love-counter">0d 0h 0m 0s</p>
+                        </div>
+                    </div>
+                </div>
+
+                    <!-- Right photo frame -->
+                    <div class="hero-photo-frame right-frame">
+                        <div class="photo-inner">
+                            <img src="photos/standup.jpg" alt="The standup show where we first met" loading="lazy" class="hero-img">
+                            <div class="photo-placeholder-hero hidden">
+                                <span>🎤</span>
+                                <p>Where we met</p>
+                            </div>
+                        </div>
+                        <p class="frame-caption">Where it began</p>
+                    </div>
+                </div>
+
+                <!-- Scroll indicator -->
+                <div class="scroll-indicator-enhanced">
+                    <span class="scroll-text">Scroll to explore</span>
+                    <div class="scroll-arrow">
+                        <span>↓</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== ENVELOPE SECTION ==================== -->
+        <section class="section envelope-section" id="envelope-section">
+            <div class="envelope-container">
+                <div class="envelope-wrapper" id="envelope-wrapper">
+                    <div class="envelope-icon">💌</div>
+                    <p class="envelope-text">Read my heart...</p>
+                    <div class="envelope-hint">Click to open</div>
+                </div>
+            </div>
+
+            <!-- Letter Modal -->
+            <div class="letter-modal" id="letter-modal">
+                <div class="letter-content">
+                    <button class="close-letter" id="close-letter">&times;</button>
+                    <h2>My Dearest...</h2>
+                    <div class="letter-body" id="letter-body"></div>
+                    <p class="letter-signature">Forever Yours</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== OUR STORY TIMELINE ==================== -->
+        <section class="section story-section" id="story-section">
+            <div class="story-header">
+                <span class="story-badge">Our Journey</span>
+                <h2 class="section-title script-font story-title">Our Story</h2>
+                <p class="section-subtitle story-subtitle">From the stage to forever...</p>
+            </div>
+
+            <div class="timeline-container">
+                <!-- Progress Line -->
+                <div class="timeline-progress-track">
+                    <div class="timeline-progress-fill" id="timeline-progress"></div>
+                </div>
+
+                <!-- Timeline Items -->
+                <div class="timeline-modern">
+                    <div class="timeline-item-modern" data-aos="fade-up">
+                        <div class="timeline-marker">
+                            <div class="marker-icon">
+                                <span>🎤</span>
+                            </div>
+                            <div class="marker-pulse"></div>
+                        </div>
+                        <div class="timeline-card-modern">
+                            <div class="card-date">
+                                <span class="date-day">29</span>
+                                <span class="date-month">May 2025</span>
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">The Standup Show</h3>
+                                <p class="card-desc">I was performing on stage, you were in the audience. Little did I know, my best act was about to walk into my life.</p>
+                                <div class="card-tag first-meeting">Where it all began</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item-modern" data-aos="fade-up">
+                        <div class="timeline-marker">
+                            <div class="marker-icon">
+                                <span>🎂</span>
+                            </div>
+                            <div class="marker-pulse"></div>
+                        </div>
+                        <div class="timeline-card-modern">
+                            <div class="card-date">
+                                <span class="date-day">09</span>
+                                <span class="date-month">July 2025</span>
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Your Special Day</h3>
+                                <p class="card-desc">Your birthday, our first adventure together. The day I got to celebrate YOU.</p>
+                                <div class="card-tag celebration">Birthday Magic</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item-modern" data-aos="fade-up">
+                        <div class="timeline-marker">
+                            <div class="marker-icon">
+                                <span>🌙</span>
+                            </div>
+                            <div class="marker-pulse"></div>
+                        </div>
+                        <div class="timeline-card-modern">
+                            <div class="card-date">
+                                <span class="date-day">16</span>
+                                <span class="date-month">Aug 2025</span>
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Janmashtami Night</h3>
+                                <p class="card-desc">Our first nightout together. Stars above, you beside me - perfect.</p>
+                                <div class="card-tag adventure">First Nightout</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item-modern" data-aos="fade-up">
+                        <div class="timeline-marker">
+                            <div class="marker-icon">
+                                <span>🚌</span>
+                            </div>
+                            <div class="marker-pulse"></div>
+                        </div>
+                        <div class="timeline-card-modern">
+                            <div class="card-date">
+                                <span class="date-day">21</span>
+                                <span class="date-month">Sept 2025</span>
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Raipur Escape</h3>
+                                <p class="card-desc">Hindi Yuva Utsav - just us, no distractions. Every trip with you is an adventure.</p>
+                                <div class="card-tag adventure">Our First Trip</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item-modern" data-aos="fade-up">
+                        <div class="timeline-marker">
+                            <div class="marker-icon">
+                                <span>💃</span>
+                            </div>
+                            <div class="marker-pulse"></div>
+                        </div>
+                        <div class="timeline-card-modern highlight-card">
+                            <div class="card-date">
+                                <span class="date-day">24</span>
+                                <span class="date-month">Sept - Oct</span>
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Navratri Week</h3>
+                                <p class="card-desc">The BEST week! We ate, we danced, we enjoyed every moment. Nine nights of pure magic.</p>
+                                <div class="card-tag special">Best Memory</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item-modern" data-aos="fade-up">
+                        <div class="timeline-marker">
+                            <div class="marker-icon">
+                                <span>🪔</span>
+                            </div>
+                            <div class="marker-pulse"></div>
+                        </div>
+                        <div class="timeline-card-modern">
+                            <div class="card-date">
+                                <span class="date-day">20</span>
+                                <span class="date-month">Oct 2025</span>
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Diwali Magic</h3>
+                                <p class="card-desc">We cooked together, we danced, we clicked photos. Our own little world of lights.</p>
+                                <div class="card-tag celebration">Festival of Lights</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item-modern" data-aos="fade-up">
+                        <div class="timeline-marker official-marker">
+                            <div class="marker-icon">
+                                <span>💍</span>
+                            </div>
+                            <div class="marker-pulse"></div>
+                            <div class="marker-ring"></div>
+                        </div>
+                        <div class="timeline-card-modern official-card">
+                            <div class="card-date">
+                                <span class="date-day">22</span>
+                                <span class="date-month">Nov 2025</span>
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Officially Together</h3>
+                                <p class="card-desc">We made it official! The day you said yes and made me the happiest person.</p>
+                                <div class="card-tag love">Official</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item-modern" data-aos="fade-up">
+                        <div class="timeline-marker">
+                            <div class="marker-icon">
+                                <span>🎄</span>
+                            </div>
+                            <div class="marker-pulse"></div>
+                        </div>
+                        <div class="timeline-card-modern">
+                            <div class="card-date">
+                                <span class="date-day">25</span>
+                                <span class="date-month">Dec 2025</span>
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">First Christmas</h3>
+                                <p class="card-desc">Our first Christmas together. Just the beginning of many more to come.</p>
+                                <div class="card-tag celebration">First of Many</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item-modern" data-aos="fade-up">
+                        <div class="timeline-marker">
+                            <div class="marker-icon">
+                                <span>🎆</span>
+                            </div>
+                            <div class="marker-pulse"></div>
+                        </div>
+                        <div class="timeline-card-modern">
+                            <div class="card-date">
+                                <span class="date-day">01</span>
+                                <span class="date-month">Jan 2026</span>
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">New Year Together</h3>
+                                <p class="card-desc">Started 2026 together! Here's to a year full of love and adventures.</p>
+                                <div class="card-tag adventure">New Beginnings</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Future/Ongoing -->
+                    <div class="timeline-item-modern timeline-future" data-aos="fade-up">
+                        <div class="timeline-marker future-marker">
+                            <div class="marker-icon">
+                                <span>💕</span>
+                            </div>
+                            <div class="marker-pulse"></div>
+                        </div>
+                        <div class="timeline-card-modern future-card">
+                            <div class="card-date">
+                                <span class="date-day">14</span>
+                                <span class="date-month">Feb 2026</span>
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Our First Valentine</h3>
+                                <p class="card-desc">The day we celebrate our love for the first time. Ready to make it unforgettable?</p>
+                                <div class="card-tag love">Coming Soon</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== PHOTO GALLERY ==================== -->
+        <section class="section gallery-section" id="gallery-section">
+            <div class="gallery-header">
+                <span class="gallery-badge-modern">Our Memories</span>
+                <h2 class="section-title script-font gallery-title">Captured Moments</h2>
+                <p class="section-subtitle gallery-subtitle">Every picture tells our story...</p>
+            </div>
+
+            <!-- Expandable Gallery Row -->
+            <div class="gallery-expandable" id="gallery-expandable">
+                <div class="gallery-item" data-caption="Where it all started" data-date="May 2025" data-emoji="🎤">
+                    <img src="photos/standup.jpg" alt="Standup Show" onerror="this.src=''; this.parentElement.classList.add('no-image');">
+                    <div class="gallery-item-placeholder">
+                        <span>🎤</span>
+                        <p>Standup Show</p>
+                    </div>
+                    <div class="gallery-item-overlay">
+                        <div class="overlay-content">
+                            <span class="overlay-emoji">💙</span>
+                            <h4>The Beginning</h4>
+                            <p>Where it all started</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-caption="Your Special Day" data-date="July 2025" data-emoji="🎂">
+                    <img src="photos/birthday-trip.jpg" alt="Birthday Trip" onerror="this.src=''; this.parentElement.classList.add('no-image');">
+                    <div class="gallery-item-placeholder">
+                        <span>🎂</span>
+                        <p>Birthday Trip</p>
+                    </div>
+                    <div class="gallery-item-overlay">
+                        <div class="overlay-content">
+                            <span class="overlay-emoji">🎉</span>
+                            <h4>Birthday Magic</h4>
+                            <p>Your special day</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-caption="Navratri Vibes" data-date="Sept-Oct 2025" data-emoji="💃">
+                    <img src="photos/navratri.jpg" alt="Navratri" onerror="this.src=''; this.parentElement.classList.add('no-image');">
+                    <div class="gallery-item-placeholder">
+                        <span>💃</span>
+                        <p>Navratri Nights</p>
+                    </div>
+                    <div class="gallery-item-overlay">
+                        <div class="overlay-content">
+                            <span class="overlay-emoji">✨</span>
+                            <h4>Nine Nights</h4>
+                            <p>Dancing together</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-caption="Diwali Magic" data-date="Oct 2025" data-emoji="🪔">
+                    <img src="photos/diwali.jpg" alt="Diwali" onerror="this.src=''; this.parentElement.classList.add('no-image');">
+                    <div class="gallery-item-placeholder">
+                        <span>🪔</span>
+                        <p>Diwali Night</p>
+                    </div>
+                    <div class="gallery-item-overlay">
+                        <div class="overlay-content">
+                            <span class="overlay-emoji">🪔</span>
+                            <h4>Festival of Lights</h4>
+                            <p>Our Diwali together</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-caption="Raipur Escape" data-date="Sept 2025" data-emoji="🚌">
+                    <img src="photos/raipur.jpg" alt="Raipur Trip" onerror="this.src=''; this.parentElement.classList.add('no-image');">
+                    <div class="gallery-item-placeholder">
+                        <span>🚌</span>
+                        <p>Raipur Trip</p>
+                    </div>
+                    <div class="gallery-item-overlay">
+                        <div class="overlay-content">
+                            <span class="overlay-emoji">🗺️</span>
+                            <h4>Adventure Time</h4>
+                            <p>Our first trip</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item featured" data-caption="Just Us" data-date="Forever" data-emoji="💕">
+                    <img src="photos/us.jpg" alt="Us" onerror="this.src=''; this.parentElement.classList.add('no-image');">
+                    <div class="gallery-item-placeholder">
+                        <span>💕</span>
+                        <p>Us Together</p>
+                    </div>
+                    <div class="gallery-item-overlay">
+                        <div class="overlay-content">
+                            <span class="overlay-emoji">❤️</span>
+                            <h4>You & Me</h4>
+                            <p>Forever together</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quote Cards Row -->
+            <div class="gallery-quotes">
+                <div class="gallery-quote-card">
+                    <span class="quote-icon">💭</span>
+                    <p>"You came as an audience, but became the main act of my life"</p>
+                </div>
+                <div class="gallery-quote-card">
+                    <span class="quote-icon">💃</span>
+                    <p>"Dancing with you during Navratri was pure magic"</p>
+                </div>
+                <div class="gallery-quote-card">
+                    <span class="quote-icon">💑</span>
+                    <p>"From strangers to soulmates - that's us"</p>
+                </div>
+            </div>
+
+            <!-- Click hint -->
+            <p class="gallery-hint">Hover to explore, click to enlarge</p>
+
+            <!-- Lightbox Modal -->
+            <div class="lightbox-modal" id="lightbox-modal" role="dialog" aria-modal="true" aria-label="Photo viewer">
+                <button class="lightbox-close" id="lightbox-close" type="button" aria-label="Close">&times;</button>
+                <button class="lightbox-nav lightbox-prev" id="lightbox-prev" type="button" aria-label="Previous photo">&#10094;</button>
+                <button class="lightbox-nav lightbox-next" id="lightbox-next" type="button" aria-label="Next photo">&#10095;</button>
+                <div class="lightbox-content">
+                    <img src="" alt="Gallery photo" id="lightbox-image">
+                    <div class="lightbox-caption">
+                        <h3 id="lightbox-title"></h3>
+                        <p id="lightbox-date"></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== WHY I LOVE YOU ==================== -->
+        <section class="section love-reasons-section" id="love-reasons-section">
+            <h2 class="section-title script-font">Why I Love You</h2>
+            <p class="section-subtitle">Every reason written in my heart...</p>
+
+            <!-- Classy Carousel -->
+            <div class="love-carousel-wrapper" role="region" aria-label="Why I love you carousel">
+                <button class="carousel-arrow carousel-prev" id="carousel-prev" type="button" aria-label="Previous reason">
+                    <span>&#10094;</span>
+                </button>
+
+                <div class="love-carousel" id="love-carousel" role="list">
+                    <div class="carousel-track" id="carousel-track">
+                        <!-- Cards filled by JS -->
+                    </div>
+                </div>
+
+                <button class="carousel-arrow carousel-next" id="carousel-next" type="button" aria-label="Next reason">
+                    <span>&#10095;</span>
+                </button>
+            </div>
+
+            <!-- Carousel Indicators -->
+            <div class="carousel-dots" id="carousel-dots">
+                <!-- Dots filled by JS -->
+            </div>
+        </section>
+
+        <!-- ==================== OPEN WHEN LETTERS ==================== -->
+        <section class="section letters-section" id="letters-section">
+            <div class="mail-icon">&#9993;</div>
+            <h2 class="section-title script-font">Open When...</h2>
+            <p class="section-subtitle">Little reminders of my love for every mood</p>
+
+            <div class="letters-grid">
+                <div class="letter-card" data-letter="miss">
+                    <div class="letter-stamp">&#10084;</div>
+                    <div class="letter-label">To: My Love</div>
+                    <h3 class="letter-title">You Miss Me</h3>
+                    <span class="letter-tag">OPEN WHEN</span>
+                </div>
+                <div class="letter-card" data-letter="sad">
+                    <div class="letter-stamp">&#10084;</div>
+                    <div class="letter-label">To: My Love</div>
+                    <h3 class="letter-title">You're Sad</h3>
+                    <span class="letter-tag">OPEN WHEN</span>
+                </div>
+                <div class="letter-card" data-letter="happy">
+                    <div class="letter-stamp">&#10084;</div>
+                    <div class="letter-label">To: My Love</div>
+                    <h3 class="letter-title">You're Happy</h3>
+                    <span class="letter-tag">OPEN WHEN</span>
+                </div>
+                <div class="letter-card" data-letter="sleep">
+                    <div class="letter-stamp">&#10084;</div>
+                    <div class="letter-label">To: My Love</div>
+                    <h3 class="letter-title">You Can't Sleep</h3>
+                    <span class="letter-tag">OPEN WHEN</span>
+                </div>
+            </div>
+
+            <!-- Open When Modal -->
+            <div class="open-when-modal" id="open-when-modal">
+                <div class="open-when-content">
+                    <button class="close-open-when" id="close-open-when">&times;</button>
+                    <h2 id="open-when-title">Open When...</h2>
+                    <p id="open-when-message"></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== COUNTDOWN SECTION ==================== -->
+        <section class="section countdown-section" id="countdown-section">
+            <div class="countdown-card">
+                <h2 class="section-title script-font">Countdown to Valentine's</h2>
+                <div class="countdown-timer" id="valentine-countdown">
+                    <div class="countdown-item">
+                        <span class="countdown-value" id="countdown-days">00</span>
+                        <span class="countdown-label">Days</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-value" id="countdown-hours">00</span>
+                        <span class="countdown-label">Hours</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-value" id="countdown-mins">00</span>
+                        <span class="countdown-label">Mins</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-value" id="countdown-secs">00</span>
+                        <span class="countdown-label">Secs</span>
+                    </div>
+                </div>
+
+                <div class="future-plans">
+                    <h3>Our Future Plans</h3>
+                    <div class="plans-list">
+                        <p>&#10024; More adventures together</p>
+                        <p>&#10024; Dance every Navratri together</p>
+                        <p>&#10024; Cook together every Diwali</p>
+                        <p>&#10024; Watch every standup show together</p>
+                        <p>&#10024; Build a life together - forever</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== BE MY VALENTINE ==================== -->
+        <section class="section question-section" id="question-section">
+            <h2 class="section-title script-font">Tisha, will you be my Valentine? &#127801;</h2>
+
+            <div class="bear-animation">
+                <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcHN4YnhzOXNlNHkxaTN0eG55N25rcWU0Y2FqMGV1eHBjMHF5OG13NSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3oEjI4sFlp73fvEYgw/giphy.gif" alt="Cute" class="cute-gif" id="question-gif">
+            </div>
+
+            <div class="question-buttons">
+                <button class="no-btn" id="no-btn" type="button" aria-label="No">No &#128546;</button>
+                <button class="yes-btn" id="yes-btn" type="button" aria-label="Yes, be my Valentine">Yes! &#10084;</button>
+            </div>
+            <p class="no-counter" id="no-counter"></p>
+        </section>
+
+        <!-- ==================== SURPRISE GIFT BOX ==================== -->
+        <section class="section surprise-section" id="surprise-section">
+            <h2 class="section-title script-font">One Last Surprise...</h2>
+            <p class="section-subtitle">Click the box to open</p>
+
+            <div class="gift-box" id="gift-box">
+                <div class="gift-lid"></div>
+                <div class="gift-body"></div>
+            </div>
+
+            <!-- Surprise Content (Hidden) -->
+            <div class="surprise-content" id="surprise-content" style="display: none;">
+                <div class="surprise-card">
+                    <div class="gif-container">
+                        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExaWJiOWx1dWdkcnE2YnJyZnR5NDZhMjJ3YTg3cXByM2RnN3BnYzMyYyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/MDJ9IbxxvDUQM/giphy.gif" alt="Happy" class="cute-gif">
+                    </div>
+                    <h2>Get Ready Tisha...</h2>
+                    <h1 class="surprise-reveal">OUR FIRST VALENTINE!</h1>
+                    <p class="surprise-date">February 14th, 2026</p>
+                    <p style="color: #666; margin-bottom: 20px;">From the standup show to forever - this is just the beginning!</p>
+                    <button class="surprise-yes-btn" id="final-yes">I can't wait! &#10084;</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== FINAL MESSAGE ==================== -->
+        <section class="section final-section" id="final-section" style="display: none;">
+            <div class="final-card">
+                <div class="photo-strip">
+                    <div class="strip-photo"><div class="photo-placeholder">Us 1</div></div>
+                    <div class="strip-photo"><div class="photo-placeholder">Us 2</div></div>
+                    <div class="strip-photo"><div class="photo-placeholder">Us 3</div></div>
+                </div>
+
+                <h1 class="final-title">My Dearest...</h1>
+                <div class="final-message-box">
+                    <p class="typewriter-final" id="final-message"></p>
+                </div>
+                <div class="final-heart">
+                    <span class="big-heart">&#10084;&#65039;</span>
+                </div>
+                <p class="signature">Forever Yours,</p>
+                <p class="signature-name">~ Ayaan</p>
+            </div>
+        </section>
+
+        <!-- ==================== FOOTER ==================== -->
+        <footer class="footer">
+            <p>Made with love for Tisha</p>
+            <p style="font-size: 12px; margin-top: 5px; color: #999;">Ayaan & Tisha</p>
+            <span class="footer-heart">&#10084;</span>
+        </footer>
+
+    </main>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

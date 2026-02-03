@@ -1,0 +1,20 @@
+# Dependencies
+node_modules/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Playwright
+.playwright-mcp/
+
+# Claude
+.claude/
+
+# Temp files
+*.log
+*.tmp
