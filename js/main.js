@@ -44,7 +44,7 @@ const CONFIG = {
 
     // Open When letter messages
     openWhenMessages: {
-        miss: "Hey Tisha... Remember that day near the football ground? That's when everything started. Close your eyes and think about our Navratri nights, our Diwali cooking session, our trips together. I'm always with you, even when we're apart. Miss you too. - Ayaan",
+        miss: "Hey kiddo... Maybe I'm not around for a while right now, but I want you to know - I'm here for you, always. Missing you from my heart, not just saying it. It's just a matter of some time and I'll be right back to you. You know that, right? I miss you, baby. Just hold on a little. - Ayaan",
         sad: "Hey Tisha... Whatever is making you sad right now, it will pass. You're stronger than you know, braver than you believe, and more loved than you can imagine. I'm here for you, always. - Ayaan",
         happy: "Tisha! Your happiness is my happiness! Seeing you smile makes my heart do backflips. You deserve all the joy in the world. - Ayaan",
         sleep: "Hey... Can't sleep? Just close your eyes and imagine us together. Count our memories instead of sheep. Sweet dreams. - Ayaan"
@@ -53,20 +53,15 @@ const CONFIG = {
     // Main love letter
     loveLetter: `Hey Tisha...
 
-Remember 29th May 2025? I was on stage, you were in the audience - in white, laughing at my jokes. That moment changed everything.
+These last few months have been the best moments of my life. I laughed a lot, enjoyed a lot, danced a lot, and yeah... cried a few times too.
 
-Then came 3rd June - the football ground. That "coincidence" turned into conversations, then calls, then texts all day long.
+But honestly, I loved spending each and every moment with you. From our trips to just roaming here and there on the scooty, to living together and all the little things in between - I love all of it.
 
-From your birthday trip to Navratri week to Diwali night - every moment with you has been magical.
+I don't really know how to say big things, but you already know that. So I'll just say this - I hope we keep spending time like this. Just us, doing our thing.
 
-On 22nd November 2025, we made it official. And since then? We've never looked back.
+That's all I want.
 
-You walked into my standup show as a stranger and became my everything.
-
-Thank you for choosing me. Thank you for being you.
-
-Forever yours,
-Ayaan`
+- Ayaan`
 };
 
 // ============================================
@@ -628,7 +623,7 @@ function initQuestion() {
     if (!yesBtn || !noBtn) return;
 
     let escapeCount = 0;
-    const maxEscapes = 10;
+    const maxEscapes = 50;
 
     const noTexts = [
         "No 😢",
@@ -640,7 +635,17 @@ function initQuestion() {
         "Don't do this...",
         "I'm begging!",
         "Last chance!",
-        "Fine... 😢"
+        "Okay fine...",
+        "Wait no!",
+        "Come back!",
+        "PLEASEE",
+        "I'll be good!",
+        "Don't leave!",
+        "🥺🥺🥺",
+        "Ayaan is sad...",
+        "Still no?!",
+        "Impossible!",
+        "You're cruel 😭"
     ];
 
     const yesTexts = [
@@ -659,21 +664,25 @@ function initQuestion() {
         noBtn.textContent = noTexts[Math.min(escapeCount, noTexts.length - 1)];
         yesBtn.textContent = yesTexts[Math.min(escapeCount, yesTexts.length - 1)];
 
-        const scale = 1 + (escapeCount * 0.12);
-        yesBtn.style.transform = `scale(${Math.min(scale, 2)})`;
+        const scale = 1 + (escapeCount * 0.08);
+        yesBtn.style.transform = `scale(${Math.min(scale, 1.8)})`;
 
-        const rect = questionSection.getBoundingClientRect();
-        const padding = 80;
-        const maxX = rect.width - noBtn.offsetWidth - padding;
-        const maxY = rect.height - noBtn.offsetHeight - padding;
+        // Use viewport-based fixed positioning so button always stays visible
+        const btnWidth = noBtn.offsetWidth || 150;
+        const btnHeight = noBtn.offsetHeight || 60;
+        const margin = 20;
 
-        const randomX = padding + Math.random() * (maxX - padding);
-        const randomY = padding + Math.random() * (maxY - padding);
+        const maxX = window.innerWidth - btnWidth - margin;
+        const maxY = window.innerHeight - btnHeight - margin;
 
-        noBtn.style.position = 'absolute';
+        const randomX = margin + Math.random() * (maxX - margin);
+        const randomY = margin + Math.random() * (maxY - margin);
+
+        noBtn.style.position = 'fixed';
         noBtn.style.left = randomX + 'px';
         noBtn.style.top = randomY + 'px';
-        noBtn.style.zIndex = '100';
+        noBtn.style.zIndex = '9999';
+        noBtn.style.transition = 'left 0.3s ease, top 0.3s ease';
 
         counter.textContent = `No button escaped ${escapeCount} times! 🤣`;
 
@@ -681,11 +690,10 @@ function initQuestion() {
         setTimeout(() => noBtn.classList.remove('shake'), 400);
 
         if (escapeCount >= maxEscapes) {
-            noBtn.style.transform = 'scale(0.3)';
-            noBtn.style.opacity = '0.4';
-            noBtn.textContent = '😢';
-            noBtn.style.pointerEvents = 'none';
-            counter.textContent = `The No button gave up! 😂`;
+            noBtn.style.transform = 'scale(0.5)';
+            noBtn.style.opacity = '0.6';
+            noBtn.textContent = '😢 Fine...';
+            counter.textContent = `No button tried to escape ${escapeCount} times and failed! 😂`;
         }
     }
 
@@ -694,8 +702,13 @@ function initQuestion() {
         moveNoButton();
     });
 
+    // Only start escaping on hover after first click
+    let firstClickDone = false;
     noBtn.addEventListener('mouseenter', () => {
-        if (escapeCount < maxEscapes) {
+        if (firstClickDone && escapeCount < maxEscapes) {
+            moveNoButton();
+        } else if (!firstClickDone) {
+            firstClickDone = true;
             moveNoButton();
         }
     });
