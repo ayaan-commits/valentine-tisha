@@ -521,6 +521,21 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="gallery-item" data-caption="My Favourite" data-date="Always" data-emoji="💝">
+                    <img src="photos/fav.jpg" alt="My favourite photo of us" onerror="this.src=''; this.parentElement.classList.add('no-image');">
+                    <div class="gallery-item-placeholder">
+                        <span>💝</span>
+                        <p>My Favourite</p>
+                    </div>
+                    <div class="gallery-item-overlay">
+                        <div class="overlay-content">
+                            <span class="overlay-emoji">💝</span>
+                            <h4>My Favourite</h4>
+                            <p>This one's special</p>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- Quote Cards Row -->
@@ -699,6 +714,19 @@
                     <h1 class="surprise-reveal">OUR FIRST VALENTINE!</h1>
                     <p class="surprise-date">February 14th, 2026</p>
                     <p style="color: #666; margin-bottom: 20px;">From the standup show to forever - this is just the beginning!</p>
+
+                    <!-- Blinkit Gift QR -->
+                    <div class="blinkit-gift">
+                        <div class="blinkit-divider"></div>
+                        <p class="blinkit-text">Sorry, I can't get you anything... but let me say it my way</p>
+                        <div class="blinkit-qr-wrapper">
+                            <div class="qr-heart-border">
+                                <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fblinkit.onelink.me%2Fz75u%2Fmljyfmna&color=3b82f6&bgcolor=ffffff" alt="Scan to get your gift" class="blinkit-qr-img">
+                            </div>
+                            <p class="blinkit-scan-text">Scan this to claim your gift</p>
+                        </div>
+                    </div>
+
                     <button class="surprise-yes-btn" id="final-yes">I can't wait! &#10084;</button>
                 </div>
             </div>
@@ -708,9 +736,9 @@
         <section class="section final-section" id="final-section" style="display: none;">
             <div class="final-card">
                 <div class="photo-strip">
-                    <div class="strip-photo"><div class="photo-placeholder">Us 1</div></div>
-                    <div class="strip-photo"><div class="photo-placeholder">Us 2</div></div>
-                    <div class="strip-photo"><div class="photo-placeholder">Us 3</div></div>
+                    <div class="strip-photo"><img src="photos/us.jpg" alt="Us" class="strip-img"></div>
+                    <div class="strip-photo"><img src="photos/fav.jpg" alt="Our favourite" class="strip-img"></div>
+                    <div class="strip-photo"><img src="photos/navratri.jpg" alt="Navratri" class="strip-img"></div>
                 </div>
 
                 <h1 class="final-title">My Dearest...</h1>
